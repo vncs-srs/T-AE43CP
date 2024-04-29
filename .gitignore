@@ -4,3 +4,10 @@ Relatorio/code/relatorio.aux
 Relatorio/code/relatorio.fdb_latexmk
 Relatorio/code/relatorio.fls
 Relatorio/code/relatorio.log
+main/exe
+main/output/main
+main/main
+main/main.o
+main/main.o
+main/main.exe
+main/main.o

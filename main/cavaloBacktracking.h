@@ -11,11 +11,9 @@ int validar_passo(int **mat, int n, int l, int c){
     return ((l >= 0) && (l < n) && (c >= 0) && (c < n) && (mat[l][c] < 0));
 }
 
-
 // Função que tenta encontrar uma solução para o problema do passeio do cavalo
 int movimento_cavalo(int **mat, int n, int l, int c, int mov){
     int i, pc, pl;
-    printf("||||\n");
 
     mat[l][c] = mov;
 
@@ -23,7 +21,6 @@ int movimento_cavalo(int **mat, int n, int l, int c, int mov){
     if (mov == n * n)
         return 1;
 
-    printf("||||\n");
     // Testar todos os movimentos possíveis do cavalo a partir da posição (l, c)
     for (i = 0; i < n; i++){
         pl = l + movX[i];
@@ -32,17 +29,13 @@ int movimento_cavalo(int **mat, int n, int l, int c, int mov){
 	// Se o passo é válido, fazer chamada recursiva para o próximo movimento
         if (validar_passo(mat, n, pl, pc)){
             if (movimento_cavalo(mat, n, pl, pc, mov + 1))
-            printf("||||\n");
                 return 1;
         }
     }
-    printf("||||\n");
 
     mat[l][c] = -1;
-    printf("------\n");
     return 0;
 }
-
 
 // função para imprimir matriz
 void imprimir(int **mat, int n){
@@ -55,7 +48,6 @@ void imprimir(int **mat, int n){
         printf("\n");
     }
 }
-
 
 // função para inicializar uma matriz n x n
 int** iniciar_mat(int n){
