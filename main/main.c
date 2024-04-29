@@ -5,7 +5,7 @@
 #include "cavaloBacktracking.h"
 
 int main() {
-    int tam, validaMov,mov,movX,movY;
+    int tam, validaMov,mov,movX0,movY0,movXf,movYf;
 
     scanf("%d",&tam);
 
@@ -13,16 +13,19 @@ int main() {
 
     imprimir(Tabuleiro,tam);
 
-    scanf("%d",&movX);
-    scanf("%d",&movY);
-    scanf("%d",&mov);
+    scanf("%d",&movX0);
+    scanf("%d",&movY0);
+    scanf("%d",&movXf);
+    scanf("%d",&movYf);
 
-    validaMov = movimento_cavalo(Tabuleiro,tam,movX,movY,mov);
+    validaMov = movimento_cavalo(Tabuleiro,tam,movX0,movY0,1);
 
-    if (validaMov == 1)
+    if (validaMov == 1){
+        printf("Quantidade de passos: %d\n", Tabuleiro[movXf][movYf]);
         imprimir(Tabuleiro,tam);
+    }
     else
-        printf("Movimento Invalido!\n");
+        printf("Nao exite um movimento possivel!\n");
 
     return 0;
 }
