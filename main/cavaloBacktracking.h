@@ -15,6 +15,7 @@ int validar_passo(int **mat, int n, int l, int c){
 // Função que tenta encontrar uma solução para o problema do passeio do cavalo
 int movimento_cavalo(int **mat, int n, int l, int c, int mov){
     int i, pc, pl;
+    printf("||||\n");
 
     mat[l][c] = mov;
 
@@ -22,20 +23,23 @@ int movimento_cavalo(int **mat, int n, int l, int c, int mov){
     if (mov == n * n)
         return 1;
 
+    printf("||||\n");
     // Testar todos os movimentos possíveis do cavalo a partir da posição (l, c)
-    for (i = 0; i < 8; i++){
+    for (i = 0; i < n; i++){
         pl = l + movX[i];
         pc = c + movY[i];
 
 	// Se o passo é válido, fazer chamada recursiva para o próximo movimento
         if (validar_passo(mat, n, pl, pc)){
             if (movimento_cavalo(mat, n, pl, pc, mov + 1))
+            printf("||||\n");
                 return 1;
         }
     }
+    printf("||||\n");
 
     mat[l][c] = -1;
-
+    printf("------\n");
     return 0;
 }
 
