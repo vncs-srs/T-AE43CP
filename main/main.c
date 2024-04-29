@@ -5,22 +5,24 @@
 #include "cavaloBacktracking.h"
 
 int main() {
-    int tam, validaMov,mov;
+    int tam, validaMov,mov,movX,movY;
 
     scanf("%d",&tam);
 
     int** Tabuleiro = iniciar_mat(tam);
 
-    for (int i = 0; i < tam; i++){
-        for(int j = 0; j < tam;j++){
-            scanf("%d",&mov);
-            validaMov = movimento_cavalo(Tabuleiro,tam,i,j,mov);
-            if (validaMov == 1)
-                imprimir(Tabuleiro,tam);
-            else
-                printf("Movimento Invalido!\n");
-        }
-    }
+    imprimir(Tabuleiro,tam);
+
+    scanf("%d",&movX);
+    scanf("%d",&movY);
+    scanf("%d",&mov);
+
+    validaMov = movimento_cavalo(Tabuleiro,tam,movX,movY,mov);
+
+    if (validaMov == 1)
+        imprimir(Tabuleiro,tam);
+    else
+        printf("Movimento Invalido!\n");
 
     return 0;
 }
