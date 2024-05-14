@@ -18,9 +18,9 @@ int main() {
     scanf("%d",&movXf);
     scanf("%d",&movYf);
 
-    validaMov = movimento_cavalo(Tabuleiro,tam,movX0,movY0,1);
+    validaMov = movimento_cavalo(Tabuleiro,tam,movX0,movY0,1,movXf,movYf);
 
-    if (validaMov == 1){
+    if (validaMov){
         printf("Quantidade de passos: %d\n", Tabuleiro[movXf][movYf]);
         imprimir(Tabuleiro,tam);
     }
