@@ -8,7 +8,7 @@ int movY[] = { 2,  1, -1, -2, -2, -1,  1,  2};
 
 // verificar se a posição (l, c) é válida no tabuleiro
 int validar_passo(int **mat, int n, int l, int c){
-    return ((l >= 0) && (l < n) && (c >= 0) && (c < n) && (mat[l][c] <= 1));
+    return ((l >= 0) && (l < n) && (c >= 0) && (c < n) && (mat[l][c] < 0));
 }
 
 // Função que tenta encontrar uma solução para o problema do passeio do cavalo
@@ -33,7 +33,7 @@ int movimento_cavalo(int **mat, int n, int l, int c, int mov, int xf, int yf){
         }
     }
 
-    mat[l][c] = 0; // Backtrack
+    mat[l][c] = -1; // Backtrack
     return 0;
 }
 
@@ -58,7 +58,7 @@ int** iniciar_mat(int n){
         mat[i] = (int*) malloc(sizeof(int) * n);
 
         for (j = 0; j < n; j++)
-            mat[i][j] = 0;
+            mat[i][j] = -1;
     }
 
     return mat;
