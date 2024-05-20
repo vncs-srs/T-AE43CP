@@ -72,21 +72,28 @@ Pato Branco, Paraná \\
 \maketitle
 
 \section{Introdução}
-Texto aqui
+Com o tempo, a programação foi se desenvolvendo cada vez mais rápido ao redor do mundo, e com isso foi se criando das mais diversas técnicas para a resolução de muitos problemas existente, e com isso conseguindo cada vez mais a otimização de códigos para seu melhor funcionamento e execução.
+
+No problema que foi escolhido para resolvermos, o deslocamento de um cavalo em um tabuleiro de xadrez, em que é necessário achar a melhor combinação de passos possíveis para chegar até a posição final definida pelo jogador. Com isso, se encaixa a otimização de resultados, fazendo com que o processamento seja cada vez menor, buscando o melhor caso entre todos os possíveis.
+
+Ao fazer a escolha do melhor modelo para resolver o problema selecionado, foi analisado qual seria a ideia para melhor aproveitamento de memória e processamento, onde o backtraking acabou se destacando por ser um modelo que descarta soluções mediana ou péssimas sem mesmo terminar sua checagem, e escolhendo sempre o melhor caso para a resolução do problema.
+
+Após o problema resolvido e a concretização da melhor ação a ser tomada, a possibilidade da resolução de outros tipos de problema desse meio utilizando essa mesma técnica poderá ser feita com muito mais rapidez e economizando memória e processamento da máquina que está sendo utilizada.
 
 \section{Problemática}
 
 \subsection{Descrição do problema}
-Deslocamento do cavalo: dado um tabuleiro de xadrez NxN, uma posição inicial (x0, y0) e uma posição final (xf, yf). A partir da posição
-inicial, encontrar, caso existir, um passeio com uma quantidade mínima de passos para chegar até a posição final. Em seguida, devem
-ser impresso a quantidade de passos e uma matriz, onde cada elemento deve indicar o número de passos para chegar em tal posição.
-Por exemplo, na posição (x0, y0) deve ser impresso 0 e, no próximo passo, 1, e assim por diante. Obs.: cada passo deve seguir a regra
-de xadrez para o movimento do cavalo.
+O problema tratado foi o do deslocamento do cavalo no tabuleiro de xadrez. Esta proposta, segue a seguinte descrição (conforme consta nas especificações do trabalho): dado um tabuleiro de ordem N (NxN) e uma posição inicial (X0, Y0), o algoritmo deve encontrar uma solução ótima (caso exista) com a menor quantidade de movimentos para chegar a posição final. O padrão de movimento do cavalo em um jogo de xadrez normal deve ser seguido, isto é, “em L”. Além disso, deve ser impresso a quantidade de passos e uma matriz onde cada elemento indica o número de passos para chegar a posição em questão.
+
+A escolha deste problema resumiu-se a um acordo comum entre todos os integrantes do grupo através de uma votação, levando em consideração o consenso entre os membros que este foi de fácil compreensão, o que permitiu um planejamento mais claro e eficiente quanto a como abordá-lo. 
+
 \subsection{Motivação para a escolha do problema}
 Texto aqui
 
 \subsection{Estrategias para a solução}
-Texto aqui
+Do mesmo modo que são tratados diversos problemas envolvendo algoritmos, é possível encontrar múltiplas soluções através de diferentes estratégias aplicadas. O critério de desempate, neste caso e em geral, reduz-se a escolha do algoritmo com melhor eficiência em comparação aos demais, ou seja, que possuí o menor custo computacional. Ainda para a escolha, consideram-se a facilidade de manipular a estratégia para a aplicação desejada e a legibilidade do código. A partir disso, foi decidido a escolha de uma estratégia comprovadamente eficiente para a resolução do cenário em questão: backtracking. 
+Backtracking é um tipo de algoritmo que deriva da busca por força bruta, sendo um refinamento desta. A estratégia em questão é utilizada para encontrar todas ou algumas soluções para problemas computacionais, especialmente problemas de satisfação de restrições. Consiste em construir candidatos para as soluções, “abandonando” um candidato (origina o termo backtrack, traduzindo, “retroceder”) ao determinar que não pode ser completado para uma solução válida. Isto implica que o algoritmo só é válido para problemas que admitem “soluções parciais” como candidatos para soluções, então possibilitando um teste de validez relativamente simples para que a solução possa ser completada.
+Conceitualmente, backtracking é frequentemente representado por uma estrutura de árvore, seguindo o padrão de busca em profundidade. Os candidatos a solução são os nós da árvore e cada nó de solução parcial é nó pai dos nós candidatos a solução, portanto também são nós intermediários. Se um nó candidato parcial é determinado como inválido, toda a subárvore desse nó também é desconsiderada, então a busca retrocede para o nó anterior e repete o processo de verificação para os demais nós da estrutura. A árvore é percorrida recursivamente, garantindo que toda a árvore válida é percorrida, mas não toda a árvore potencial (que contém todos os possíveis candidatos mas nem todos válidos).
 
 \section{Descrição das Soluções do Problema}
 Texto aqui
