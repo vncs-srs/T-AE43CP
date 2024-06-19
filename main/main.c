@@ -1,36 +1,31 @@
 #include <stdio.h>
-#include <string.h>
-#include <math.h>
 #include <stdlib.h>
-#include "cavaloBacktracking.c"
+#include "cavaloBFSBacktracking.c"
 
 int main() {
-    int N, x0, y0, xf, yf;
-    //Tamanho do tabuleiro N
-    scanf("%d", &N);
+    int n;
+    printf("Digite o tamanho do tabuleiro: ");
+    scanf("%d", &n);
 
-    //Posição inicial (x0, y0)
-    scanf("%d %d", &x0, &y0);
+    int iniX, iniY, fimX, fimY;
+    printf("Digite a posição inicial (x y): ");
+    scanf("%d %d", &iniX, &iniY);
+    printf("Digite a posição final (xf yf): ");
+    scanf("%d %d", &fimX, &fimY);
 
-    //Posição final (xf, yf)
-    scanf("%d %d", &xf, &yf);
+    int caminho[n][n];
+    Cell pai[n][n];
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            caminho[i][j] = 0;
 
-    if (!posicao_valida(x0, y0, N) || !posicao_valida(xf, yf, N)) {
-        printf("Posição inicial ou final inválida.\n");
-        return 1;
-    }
-
-    int matriz_passos[MAX_N][MAX_N];
-    Posicao pai[MAX_N][MAX_N];
-
-    int passos = bfs_minimos_passos(N, x0, y0, xf, yf, matriz_passos, pai);
-
-    if (passos != INF) {
-        printf("Quantidade mínima de passos: %d\n", passos);
-        rastrear_caminho(xf, yf, matriz_passos, pai);
-        imprimir_matriz(N, matriz_passos);
+    int result = bfs(n, iniX, iniY, fimX, fimY, caminho, pai);
+    if (result != -1) {
+        backtrackCam(n, iniX, iniY, fimX, fimY, caminho, pai);
+        printf("Menor caminho encontrado (passos): %d\n", result);
+        imprimeTab(n, caminho, iniX, iniY);
     } else {
-        printf("Não é possível alcançar a posição final a partir da posição inicial.\n");
+        printf("Não há caminho possível para o cavalo.\n");
     }
 
     return 0;
