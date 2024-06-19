@@ -73,7 +73,7 @@ int bfs(int n, int iniX, int iniY, int fimX, int fimY, int caminho[n][n], Cell p
     return -1; // Caminho não encontrado
 }
 
-// (81 - 90)
+// (80 - 89)
 // Função de backtracking para marcar o caminho no tabuleiro
 // Realiza o backtracking do caminho encontrado pela BFS. 
 // Começa na célula final e segue os pais até a célula inicial, marcando o caminho no tabuleiro.
@@ -88,7 +88,7 @@ void backtrackCam(int n, int iniX, int iniY, int fimX, int fimY, int caminho[n][
     backtrackCam(n, iniX, iniY, p.x, p.y, caminho, pai);
 }
 
-// (96 - 116)
+// (94 - 114)
 // Esta função imprime o tabuleiro com os passos do caminho. 
 // Os valores do caminho são exibidos em cada célula. A célula inicial é destacada com um asterisco *.
 void imprimeTab(int n, int caminho[n][n], int x, int y) {
@@ -113,7 +113,7 @@ void imprimeTab(int n, int caminho[n][n], int x, int y) {
     }
 }
 
-// (122 - 149)
+// (121 - 148)
 // No main(), o tamanho do tabuleiro e as posições inicial e final são lidas do usuário. Inicializa-se o tabuleiro caminho e a matriz pai. 
 // A função bfs() é chamada para encontrar o menor caminho. 
 // Se um caminho é encontrado, backtrackCam() é usada para registrar o caminho e imprimeTab() para imprimir o tabuleiro. 
