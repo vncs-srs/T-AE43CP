@@ -1,16 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "cavaloBFSBacktracking.c"
+#include "cavaloBFSBacktracking.h"
 
+// No main(), o tamanho do tabuleiro e as posições inicial e final são lidas do usuário. Inicializa-se o tabuleiro caminho e a matriz pai. 
+// A função bfs() é chamada para encontrar o menor caminho. 
+// Se um caminho é encontrado, backtrackCam() é usada para registrar o caminho e imprimeTab() para imprimir o tabuleiro. 
+// Se não há caminho, uma mensagem apropriada é exibida. Finalmente, o programa retorna 0.
 int main() {
     int n;
-    printf("Digite o tamanho do tabuleiro: ");
     scanf("%d", &n);
 
     int iniX, iniY, fimX, fimY;
-    printf("Digite a posição inicial (x y): ");
     scanf("%d %d", &iniX, &iniY);
-    printf("Digite a posição final (xf yf): ");
     scanf("%d %d", &fimX, &fimY);
 
     int caminho[n][n];
