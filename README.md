@@ -50,7 +50,7 @@ Menor caminho encontrado (passos): 4
 7:  0  0  0  0  0  0  0  4 
 
 ```
-## Metodos Usados Para a solução do Problema
+## Metodos Usados para a Solução do Problema
 Há a utilização do `Backtracing` para rastrear os caminhos validos em conjunto de uma implementa de `busca em largura` (BFS) para encontrar o menor quantidade de passos necessários para o cavalo chegar à posição final.
 
 ## Contribuição
