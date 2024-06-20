@@ -4,9 +4,9 @@ Este projeto implementa uma solução para o **Problema do Cavalo no Xadrez**, q
 
 ## Arquivos
 
-- `cavaloBacktracking.c`: Contém a implementação do algoritmo de busca em largura (BFS) para encontrar a menor quantidade de passos.
+- `cavaloBacktracking.h`: Contém a implementação do algoritmo de busca em largura (BFS) para encontrar a menor quantidade de passos.
 - `main.c`: Arquivo principal que lê as entradas (tamanho do tabuleiro, posição inicial e posição final) e chama a função de busca.
-- `entrada.txt`: E o arquivo de entrada de dados onde o programa.
+- `entrada.txt`: E o arquivo de entrada de dados do programa.
 
 
 ## Compilação e Execução
@@ -27,8 +27,7 @@ Para executar o programa deve-se inserir as entradas de dados no arquivo `entrad
 2 2
 7 7
 ```
-  
-Em seguida executar o comando:
+Deve-se inserir os dados nesse no arquivo `entrada.txt` e em seguida executar o comando:
 ```bash 
 ./cavalo_xadrez < entrada.txt
 ```
