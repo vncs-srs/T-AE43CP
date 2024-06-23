@@ -113,44 +113,177 @@ Tendo que o problema que tivemos em mãos foi o cavalo que se move em padrões p
 A solução encontrada para a resolução do problema foi uma combinação entre BFS e backtracking. A busca em profundidade do BFS encontra todos os caminhos possíveis para a área escolhida, fazendo diversos caminhos e os marcando para calcular cada caminho possível, salvando sempre a distância de cada local encontrado até a origem em seus próprios locais de armazenamento, isto é, se o caminho for encontrado, caso contrário, e retornado o valor –1. A realização do backtracking e enfim usada nos resultados encontrados pela aplicação anterior, depois de conferido o menor caminho, para então seguir da célula final a célula inicial, fazendo o caminho reverso ao qual foi dado do menor caminho, marcando assim na matriz o caminho que deve ser impresso no tabuleiro, e finalizando o processo temos uma função para a impressão da matriz no formato informado pelo usuario para ser o tabuleiro de xadrez.
 
 \section{Análise de Complexidade Tempo e de Espaço}
-Texto aqui
+Para a analise de complexidade foi calculada em partes para maior compreensão de das características do codigo de formas a chegarmos as melhores resultados, dado as características do problemas e suas soluções.
+\subsection{ehValido}
 \begin{lstlisting}[language=C]
-    #include <stdio.h>
-    int main() {
-        printf("Ola, Mundo!\n");
-        return 0;
+    int ehValido(int x, int y, int n) {
+         return (x >= 0 && x < n && y >= 0 && y < n);
+    }    
+\end{lstlisting}
+
+Está é uma função que faz uma comparação para determinar se o argumento passado é válido.
+
+A complexidade de tempo é constante, O(1), por conta que a função apenas faz uma comparação aritmética.
+
+A complexidade de espaço é constante, O(1), por conta que ela apenas usa quantidades constantes de memória em seu armazenamento, apenas para guardar variáveis temporárias utilizadas na comparação.
+
+\subsection{BFS}
+
+\begin{lstlisting}[language=C]
+    int bfs(int n, int iniX, int iniY, int fimX, int fimY, int caminho[n][n], Cell pai[n][n]) {
+
+        int visitou[n][n];
+    
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++) {
+                visitou[i][j] = 0;
+                pai[i][j] = (Cell){-1, -1, -1};
+            }
+    
+        Cell fila[MAXN * MAXN];
+        int frente = 0, tras = 0;
+    
+        fila[tras++] = (Cell){iniX, iniY, 0};
+        visitou[iniX][iniY] = 1;
+    
+        while (frente < tras) {
+            Cell cell = fila[frente++];
+    
+            if (cell.x == fimX && cell.y == fimY) {
+                return cell.dist;
+            }
+    
+            for (int i = 0; i < 8; i++) {
+                int x = cell.x + dx[i];
+                int y = cell.y + dy[i];
+    
+                if (ehValido(x, y, n) && !visitou[x][y]) {
+                    visitou[x][y] = 1;
+                    pai[x][y] = (Cell){cell.x, cell.y, cell.dist + 1};
+                    fila[tras++] = (Cell){x, y, cell.dist + 1};
+                }
+            }
+        }
+        return -1;
+    }
+    
+\end{lstlisting}
+
+Está é uma função de Busca em Largura (BFS).
+
+A complexidade de tempo dessa função é de O(n²) por causa que temos interações de matrizes NxN, assim como laços for NxN, tudo isso vai nos resultar em uma complexidade NxN, ou seja, O(n²). Ao todo, o algoritmo BFS visita cada célula no pior caso uma única vez, isso vai levar ao todo O(n²) operações para fazer toda a visita.
+
+A complexidade de espaço dessa função é O(n²) por conta de usarmos uma matriz auxiliar NxN para manter guardado valores das células visitadas, as quais são as matrizes dos caminhos do cavalo, a visitou, ela vai ocupar O(n²) de espaço. isso nos resulta em uma complexidade de espaço NxN, ou seja, O(n²).
+
+\subsection{backtrackCam}
+
+\begin{lstlisting}[language=C]
+    void backtrackCam(int n, int iniX, int iniY, int fimX, int fimY, int caminho[n][n], Cell pai[n][n]) {
+        if (fimX == iniX && fimY == iniY) {
+            caminho[iniX][iniY] = 0;
+            return;
+        }
+    
+        Cell p = pai[fimX][fimY];
+        caminho[fimX][fimY] = p.dist;
+        backtrackCam(n, iniX, iniY, p.x, p.y, caminho, pai);
+    }    
+\end{lstlisting}
+
+Está é uma função de Backtracking.
+
+A complexidade de tempo dessa função é de O(n²), por conta que ela usa uma chamada recursiva para colocar cada célula do caminho do final até a cell do início, visitando cada uma delas. A profundidade máxima da recursão é limitada pela quantias de células que estão pelo caminho, teríamos um pior caso de NxN, a matriz toda, ou seja, O(n²).
+
+A complexidade de espaço é de O(n²) por conta que usamos espaço na pilha proporcionalmente à profundidade máxima da recursão, a qual é NxN. Também temos as matrizes de tamanho NxN, ou seja, o espaço ocupado por elas é O(n²).
+
+\subsection{imprimeTab}
+\begin{lstlisting}[language=C]
+    void imprimeTab(int n, int caminho[n][n], int x, int y) {
+        printf("    ");
+        for (int j = 0; j < n; j++) {
+            printf("%d:", j);
+            printf(" ");
+        }
+        printf("\n");
+    
+        for (int i = 0; i < n; i++) {
+            printf("%d: ", i);
+            for (int j = 0; j < n; j++) {
+                if(i == x && j == y){
+                    printf("%2d*", caminho[i][j]);
+                }
+                else{
+                    printf("%2d ", caminho[i][j]);
+                }
+            }
+            printf("\n");
+        }
     }
 \end{lstlisting}
 
-\begin{table}[htbp]
-\caption{Table Type Styles}
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-\hline
-\textbf{Table}&\multicolumn{3}{|c|}{\textbf{Table Column Head}} \\
-\cline{2-4} 
-\textbf{Head} & \textbf{\textit{Table column subhead}}& \textbf{\textit{Subhead}}& \textbf{\textit{Subhead}} \\
-\hline
-copy& More table copy$^{\mathrm{a}}$& &  \\
-\hline
-\multicolumn{4}{l}{$^{\mathrm{a}}$Sample of a Table footnote.}
-\end{tabular}
-\label{tab1}
-\end{center}
-\end{table}
+A complexidade de tempo é de O(n²). Temos dois laços for utilizados para imprimir a matriz, os dois seguindo até N, dentro deles temos operações printf simples que são constantes, ao todo, sendo denominada O(n²) pelo seu loop de impressão NxN.
 
-\begin{figure}[htbp]
-\centerline{\includegraphics{fig1.png}}
-\caption{Example of a figure caption.}
-\label{fig}
-\end{figure}
+A complexidade de espaço é O(1). As variáveis que utilizamos dentro dela são apenas constantes, e suas variáveis criadas são constantes i e j. O resto passamos para dentro da função, sem alocação dentro dela, logo utilizamos as variáveis locais e espaço de pilha utilizado durante sua execução, logo temos O(1).
+
+\subsection{Main}
+\begin{lstlisting}[language=C]
+    int main() {
+        int n;
+        scanf("%d", &n);
+    
+        int iniX, iniY, fimX, fimY;
+        scanf("%d %d", &iniX, &iniY);
+        scanf("%d %d", &fimX, &fimY);
+    
+        int caminho[n][n];
+        Cell pai[n][n];
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+                caminho[i][j] = 0;
+    
+        int result = bfs(n, iniX, iniY, fimX, fimY, caminho, pai);
+        if (result != -1) {
+            backtrackCam(n, iniX, iniY, fimX, fimY, caminho, pai);
+            printf("Menor caminho encontrado (passos): %d\n", result);
+            imprimeTab(n, caminho, iniX, iniY);
+        } else {
+            printf("Nao ha caminho possivel para o cavalo.\n");
+        }
+    
+        return 0;
+    }      
+\end{lstlisting}
+
+A complexidade de tempo dentro da Main é O(n²) por conta que temos um laço for de NxN para criação da matriz utilizada no algoritmo, assim como também temos que a função BFS e backtrackCam tem a complexidade de O(n²) em seu pior caso. 
+
+A complexidade de espaço dentro da Main é de O(n²) por conta que temos duas matrizes de duas dimensões, a matriz caminho e pai, ambas são NxN. Essas matrizes armazenam informação sobre o caminho e suas células parentes durante o algoritmo de procura. Por conta de seu tamanho NxN, elas ocupam espaço O(n²).
+
+\subsection{Conclusão}
+Em geral, temos que a complexidade total do algoritmo seria:
+
+- Complexidade de Tempo: O(n²).
+
+- Complexidade de Espaço: O(n²).
+
+Nos garantindo um resultado otimizado e esperado, na medida da lógica dos algoritmos utilizados para a solução do problema.
+
 
 
 \section{Conclusão}
-Texto aqui
+Concluímos que a complexidade de tempo e espaço do algoritmo utilizado para solução do problema do cavalo foi de O(n²). 
+
+Chegamos a um bom resultado, visando que tanto os algoritmos de BFS e Backtracking utilizados para a resolução do problema haviam em seu pior caso O(n²), conseguimos manter o algoritmo tendo sua complexidade quadrática, se tornando uma solução viável para entregarmos um bom resultado.
+
+Quando consideramos que o tamanho do tabuleiro é NxN, onde N seria os números de células, Isso nos resulta um desempenho que é proporcional a n², o que reflete para a gente sua complexidade tanto em tempo quanto espaço de O(n²), isso confirma que a complexidade 
 
 \section{Declaração de Autoria}
 O integrante Caetano C. Souza foi responsável pelo desenvolvimento do código, o que inclui implementação e correção das funções de busca em largura para o menor caminho do cavalo, backtracking para reconstrução e representação do caminho, impressão da matriz e correções na main. O integrante ainda foi responsável pela documentação do código, a descrição do problema, motivações para a escolha das estratégias e sua descrição no artigo. 
+
+O integrante Guilherme I. M. D. Libera, foi responsável pela elaboração de parte do artigo como introdução do tema e a motivação da escolha em específico, e demais partes do desenvolvimento quando necessário. E a partir do artigo, a elaboração da apresentação de defesa do artigo final feita presencialmente.
+
+O integrante Kelvyn A. W. Nonato foi responsável pelo cálculo de complexidade de tempo e espaço do algoritmo dentro de cada função específica e fazer a conclusão dos resultados obtidos na forma de criação, aprimoramento e cálculo de complexidade do código. O integrante também auxiliou na observação de erros dentro do código e documentando a conclusão do artigo.
+
+O integrante Luiz Eduardo Rufatto foi responsável pela primeira elaboração do código, a função qual foi repassada para o aluno Caetano posteriormente, o relatório sobre "Descrição da solução do problema" e ajudas em discussões sobre pormenores e ajustes de código.
 
 O integrante Vinícius S. Rosário foi responsável pela criação da base do código, bem como pela implementação dos algoritmos de backtracking, BFS e o arquivo de entrada de dados, contribuiu para a construção do relatório, fornecendo informações relevantes e detalhes sobre a implementação do código, organizou o repositório Git, criou o README e garanti que o código-fonte estivesse adequadamente versionado e assumiu a responsabilidade de organizar o grupo, distribuindo tarefas entre os membros e garantindo uma colaboração eficiente.
 
@@ -163,11 +296,7 @@ O integrante Vinícius S. Rosário foi responsável pela criação da base do c�
 \bibitem{b5} “Shortest path in an unweighted graph - GeeksforGeeks”. GeeksforGeeks. Consult. 2024-06-23. [Em linha]. Disponível: https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
 \bibitem{b6} “Minimum Steps to Reach the Target - GeeksforGeeks”. GeeksforGeeks. Consult. 2024-06-23. [Em linha]. Disponível: https://www.geeksforgeeks.org/minimum-steps-to-reach-the-target/
 \bibitem{b7} J. R. Bitner e E. M. Reingold, “Backtrack programming techniques”, Commun. ACM, vol. 18, n.º 11, pp. 651–656, novembro de 1975. Consult. 2024-06-23. [Em linha]. Disponível: https://doi.org/10.1145/361219.361224
-\bibitem{b8} T. H. Cormen, Algoritmos. Elsevier, 2012.
-\bibitem{b9} F. R. (Editor), P. v. B. (Editor) e T. W. (Editor), Eds., Handbook of Constraint Programming (Foundations of Artificial Intelligence). Elsevier Sci., 2006.
-\bibitem{b10} F. L. Bauer e H. Wössner, “The “Plankalkül” of Konrad Zuse”, Commun. ACM, vol. 15, n.º 7, pp. 678–685, julho de 1972. Consult. 2024-06-23. [Em linha]. Disponível: https://doi.org/10.1145/361454.361515
+\bibitem{b8} F. R. (Editor), P. v. B. (Editor) e T. W. (Editor), Eds., Handbook of Constraint Programming (Foundations of Artificial Intelligence). Elsevier Sci., 2006.
+\bibitem{b9} F. L. Bauer e H. Wössner, “The “Plankalkül” of Konrad Zuse”, Commun. ACM, vol. 15, n.º 7, pp. 678–685, julho de 1972. Consult. 2024-06-23. [Em linha]. Disponível: https://doi.org/10.1145/361454.361515
 \end{thebibliography}
-\vspace{12pt}
-\color{red}
-texto aqui
 \end{document}
