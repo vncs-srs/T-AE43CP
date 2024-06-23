@@ -8,6 +8,7 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{listings}
+\usepackage{hyperref}
 
 \lstdefinestyle{myCStyle}{
     language=C,
@@ -83,17 +84,29 @@ Após o problema resolvido e a concretização da melhor ação a ser tomada, a 
 \section{Problemática}
 
 \subsection{Descrição do problema}
-O problema tratado foi o do deslocamento do cavalo no tabuleiro de xadrez. Esta proposta, segue a seguinte descrição (conforme consta nas especificações do trabalho): dado um tabuleiro de ordem N (NxN) e uma posição inicial (X0, Y0), o algoritmo deve encontrar uma solução ótima (caso exista) com a menor quantidade de movimentos para chegar a posição final. O padrão de movimento do cavalo em um jogo de xadrez normal deve ser seguido, isto é, “em L”. Além disso, deve ser impresso a quantidade de passos e uma matriz onde cada elemento indica o número de passos para chegar a posição em questão.
+O problema tratado foi o do deslocamento do cavalo no tabuleiro de xadrez. Esta proposta, segue a seguinte descrição (conforme consta nas especificações do trabalho): dado um tabuleiro de ordem N (NxN) e uma posição inicial (X0, Y0), o algoritmo deve encontrar uma solução ótima (caso exista) com a menor quantidade de movimentos para chegar a posição final. O padrão de movimento do cavalo em um jogo de xadrez normal deve ser seguido, isto é, “em L”. Além disso, deve ser impresso a quantidade de passos e uma matriz onde cada elemento indica o número de passos para chegar à posição em questão.
 
-A escolha deste problema resumiu-se a um acordo comum entre todos os integrantes do grupo através de uma votação, levando em consideração o consenso entre os membros que este foi de fácil compreensão, o que permitiu um planejamento mais claro e eficiente quanto a como abordá-lo. 
+A escolha deste problema resumiu-se a um acordo comum entre todos os integrantes do grupo através de uma votação, levando em consideração o consenso entre os membros que este foi de fácil compreensão, o que permitiu um planejamento mais claro e eficiente quanto a como abordá-lo.
 
 \subsection{Motivação para a escolha do problema}
-Texto aqui
+Para o desafio que nos propusemos a desenvolver, após alguns testes realizados, decidimos pela utilização do uso de backtracking, pois com ele sempre pegando o melhor caso sempre conseguir uma eficiência máxima.
+
+E muitas vezes quando atrelado a programação dinâmica, é possível conseguir resultados melhor que o esperado, pois ele sempre evita vários cálculos desnecessários em diversos códigos, assim economizando ainda mais memória sempre que possível.
 
 \subsection{Estrategias para a solução}
-Do mesmo modo que são tratados diversos problemas envolvendo algoritmos, é possível encontrar múltiplas soluções através de diferentes estratégias aplicadas. O critério de desempate, neste caso e em geral, reduz-se a escolha do algoritmo com melhor eficiência em comparação aos demais, ou seja, que possuí o menor custo computacional. Ainda para a escolha, consideram-se a facilidade de manipular a estratégia para a aplicação desejada e a legibilidade do código. A partir disso, foi decidido a escolha de uma estratégia comprovadamente eficiente para a resolução do cenário em questão: backtracking. 
+Do mesmo modo que são tratados diversos problemas envolvendo algoritmos, é possível encontrar múltiplas soluções através de diferentes estratégias aplicadas. O critério de desempate, neste caso e em geral, reduz-se a escolha do algoritmo com melhor eficiência em comparação aos demais, ou seja, que possui o menor custo computacional. Ainda para a escolha, consideram-se a facilidade de manipular a estratégia para a aplicação desejada e a legibilidade do código. A partir disso, foi decidido a escolha de duas estratégias de algoritmos comprovadamente eficientes que nos auxiliam com a resolução do cenário em questão: backtracking aliada a busca em largura.
+
 Backtracking é um tipo de algoritmo que deriva da busca por força bruta, sendo um refinamento desta. A estratégia em questão é utilizada para encontrar todas ou algumas soluções para problemas computacionais, especialmente problemas de satisfação de restrições. Consiste em construir candidatos para as soluções, “abandonando” um candidato (origina o termo backtrack, traduzindo, “retroceder”) ao determinar que não pode ser completado para uma solução válida. Isto implica que o algoritmo só é válido para problemas que admitem “soluções parciais” como candidatos para soluções, então possibilitando um teste de validez relativamente simples para que a solução possa ser completada.
+
 Conceitualmente, backtracking é frequentemente representado por uma estrutura de árvore, seguindo o padrão de busca em profundidade. Os candidatos a solução são os nós da árvore e cada nó de solução parcial é nó pai dos nós candidatos a solução, portanto também são nós intermediários. Se um nó candidato parcial é determinado como inválido, toda a subárvore desse nó também é desconsiderada, então a busca retrocede para o nó anterior e repete o processo de verificação para os demais nós da estrutura. A árvore é percorrida recursivamente, garantindo que toda a árvore válida é percorrida, mas não toda a árvore potencial (que contém todos os possíveis candidatos mas nem todos válidos).
+
+O termo backtrack é creditado a Derrick H. Lehmer na década de 1950, porém diversos autores trabalharam acerca do tema ao longo dos anos.
+
+Já a busca em largura é um algoritmo de busca que expande e examina todos os vértices de um grafo ou todos os nós de uma árvore, dependendo da representação escolhida. Na prática, o algoritmo geralmente utiliza uma estrutura de fila para marcar os nós visitados e os nós ainda não visitados. Dessa maneira, percorre todas as alternativas em um determinado nível até encontrar a solução ótima. Portanto, a busca em largura provou-se um algoritmo eficiente e apropriado para a resolução do problema do menor caminho para o cavalo no tabuleiro de tamanho N, dado que, por sua natureza, garante que o menor caminho seja escolhido.
+
+A busca em largura e sua aplicação em encontrar componentes conectados de grafos foi inventado pelo engenheiro e cientista da computação alemão Konrad Zuse em 1945, porém seu estudo foi publicado apenas em 1972. Foi reinventado em 1959 pelo também cientista da computação e professor de matemática americano Edward F. Moore, que a utilizou para encontrar o menor caminho em um labirinto.
+
+Para a resolução do problema, utilizamos a busca em largura para encontrar o menor caminho que o cavalo deve percorrer até chegar ao destino e ainda uma estrutura auxiliar (matriz “pai”) para registrar e posteriormente reconstruir o caminho percorrido. A reconstrução é feita através de backtracking, utilizando a estrutura citada que mantém o pai de cada célula de posição, por meio de uma função recursiva que preenche uma outra matriz com os passos do cavalo. Ela percorre o caminho do destino de volta à origem, utilizando uma abordagem recursiva para reconstruir o percurso. Essa técnica permite explorar todas as possíveis opções para construir o caminho correto, mas neste caso específico, a função apenas segue as informações previamente calculadas pela busca em largura, o que simplifica o processo de backtracking.
 
 \section{Descrição das Soluções do Problema}
 Texto aqui
@@ -135,18 +148,19 @@ copy& More table copy$^{\mathrm{a}}$& &  \\
 Texto aqui
 
 \section{Declaração de Autoria}
-Relatorio dos membros aqui
+O integrante Caetano C. Souza foi responsável pelo desenvolvimento do código, o que inclui implementação e correção das funções de busca em largura para o menor caminho do cavalo, backtracking para reconstrução e representação do caminho, impressão da matriz e correções na main. O integrante ainda foi responsável pela documentação do código, a descrição do problema, motivações para a escolha das estratégias e sua descrição no artigo. 
 
-\section*{Referências}
+O integrante Vinícius S. Rosário foi responsável pela criação da base do código, bem como pela implementação dos algoritmos de backtracking, BFS e o arquivo de entrada de dados, contribuiu para a construção do relatório, fornecendo informações relevantes e detalhes sobre a implementação do código, organizou o repositório Git, criou o README e garanti que o código-fonte estivesse adequadamente versionado e assumiu a responsabilidade de organizar o grupo, distribuindo tarefas entre os membros e garantindo uma colaboração eficiente.
 
+\renewcommand{\refname}{Referências}
 \begin{thebibliography}{00}
-\bibitem{b1} G. Eason, B. Noble, and I. N. Sneddon, ``On certain integrals of Lipschitz-Hankel type involving products of Bessel functions,'' Phil. Trans. Roy. Soc. London, vol. A247, pp. 529--551, April 1955.
-\bibitem{b2} J. Clerk Maxwell, A Treatise on Electricity and Magnetism, 3rd ed., vol. 2. Oxford: Clarendon, 1892, pp.68--73.
-\bibitem{b3} I. S. Jacobs and C. P. Bean, ``Fine particles, thin films and exchange anisotropy,'' in Magnetism, vol. III, G. T. Rado and H. Suhl, Eds. New York: Academic, 1963, pp. 271--350.
-\bibitem{b4} K. Elissa, ``Title of paper if known,'' unpublished.
-\bibitem{b5} R. Nicole, ``Title of paper with only first word capitalized,'' J. Name Stand. Abbrev., in press.
-\bibitem{b6} Y. Yorozu, M. Hirano, K. Oka, and Y. Tagawa, ``Electron spectroscopy studies on magneto-optical media and plastic substrate interface,'' IEEE Transl. J. Magn. Japan, vol. 2, pp. 740--741, August 1987 [Digests 9th Annual Conf. Magnetics Japan, p. 301, 1982].
-\bibitem{b7} M. Young, The Technical Writer's Handbook. Mill Valley, CA: University Science, 1989.
+\bibitem{b1} Zuse, Konrad (1972), Der Plankalkül (in German), Konrad Zuse Internet Archive. See pp. 96–105 of the linked pdf file (internal numbering 2.47–2.56).
+\bibitem{b2} Moore, Edward F. (1959). "The shortest path through a maze". Proceedings of the International Symposium on the Theory of Switching. Harvard University Press. pp. 285–292. As cited by Cormen, Leiserson, Rivest, and Stein.
+\bibitem{b3} CORMEN, T. et al. Algoritmos: Teoria e Prática. Editora Campus, 2012.
+\bibitem{b4} \href{https://www.geeksforgeeks.org/shortest-path-unweighted-graph/}{Shortest path in an unweighted graph - GeeksforGeeks}
+\bibitem{b5} \href{https://www.geeksforgeeks.org/minimum-steps-to-reach-the-target/}{Minimum Steps to Reach the Target - GeeksforGeeks}
+\bibitem{b6} \href{https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/}{Breadth First Search or BFS for a Graph - GeeksforGeeks}
+\bibitem{b7} \href{https://en.wikipedia.org/wiki/Breadth-first_search}{Breadth-first search - Wikipedia}
 \end{thebibliography}
 \vspace{12pt}
 \color{red}
