@@ -8,7 +8,6 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{listings}
-\usepackage{hyperref}
 
 \lstdefinestyle{myCStyle}{
     language=C,
@@ -35,7 +34,7 @@
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Movimento do Cavalo\\
+\title{Problema do Cavalo no Xadrez\\
 {\footnotesize \textsuperscript{}Trabalho de Algoritimos e Estrutura de Dados 2}
 }
 
@@ -109,7 +108,10 @@ A busca em largura e sua aplicação em encontrar componentes conectados de graf
 Para a resolução do problema, utilizamos a busca em largura para encontrar o menor caminho que o cavalo deve percorrer até chegar ao destino e ainda uma estrutura auxiliar (matriz “pai”) para registrar e posteriormente reconstruir o caminho percorrido. A reconstrução é feita através de backtracking, utilizando a estrutura citada que mantém o pai de cada célula de posição, por meio de uma função recursiva que preenche uma outra matriz com os passos do cavalo. Ela percorre o caminho do destino de volta à origem, utilizando uma abordagem recursiva para reconstruir o percurso. Essa técnica permite explorar todas as possíveis opções para construir o caminho correto, mas neste caso específico, a função apenas segue as informações previamente calculadas pela busca em largura, o que simplifica o processo de backtracking.
 
 \section{Descrição das Soluções do Problema}
-Texto aqui
+Tendo que o problema que tivemos em mãos foi o cavalo que se move em padrões pré-definidos por um tabuleiro de xadrez, do local de saída escolhido pelo usuario, até um local de chegada escolhido pelo usuario, sendo o tabuleiro alocado dentro de uma matriz NxN, procuramos por um meio de encontrar o menor caminho que leva ao local de chegada, um meio de marcá-lo, e de mostrá-lo em uma matriz. 
+
+A solução encontrada para a resolução do problema foi uma combinação entre BFS e backtracking. A busca em profundidade do BFS encontra todos os caminhos possíveis para a área escolhida, fazendo diversos caminhos e os marcando para calcular cada caminho possível, salvando sempre a distância de cada local encontrado até a origem em seus próprios locais de armazenamento, isto é, se o caminho for encontrado, caso contrário, e retornado o valor –1. A realização do backtracking e enfim usada nos resultados encontrados pela aplicação anterior, depois de conferido o menor caminho, para então seguir da célula final a célula inicial, fazendo o caminho reverso ao qual foi dado do menor caminho, marcando assim na matriz o caminho que deve ser impresso no tabuleiro, e finalizando o processo temos uma função para a impressão da matriz no formato informado pelo usuario para ser o tabuleiro de xadrez.
+
 \section{Análise de Complexidade Tempo e de Espaço}
 Texto aqui
 \begin{lstlisting}[language=C]
@@ -157,10 +159,13 @@ O integrante Vinícius S. Rosário foi responsável pela criação da base do c�
 \bibitem{b1} Zuse, Konrad (1972), Der Plankalkül (in German), Konrad Zuse Internet Archive. See pp. 96–105 of the linked pdf file (internal numbering 2.47–2.56).
 \bibitem{b2} Moore, Edward F. (1959). "The shortest path through a maze". Proceedings of the International Symposium on the Theory of Switching. Harvard University Press. pp. 285–292. As cited by Cormen, Leiserson, Rivest, and Stein.
 \bibitem{b3} CORMEN, T. et al. Algoritmos: Teoria e Prática. Editora Campus, 2012.
-\bibitem{b4} \href{https://www.geeksforgeeks.org/shortest-path-unweighted-graph/}{Shortest path in an unweighted graph - GeeksforGeeks}
-\bibitem{b5} \href{https://www.geeksforgeeks.org/minimum-steps-to-reach-the-target/}{Minimum Steps to Reach the Target - GeeksforGeeks}
-\bibitem{b6} \href{https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/}{Breadth First Search or BFS for a Graph - GeeksforGeeks}
-\bibitem{b7} \href{https://en.wikipedia.org/wiki/Breadth-first_search}{Breadth-first search - Wikipedia}
+\bibitem{b4} “Breadth First Search or BFS for a Graph - GeeksforGeeks”. GeeksforGeeks. Consult. 2024-06-23. [Em linha]. Disponível: https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+\bibitem{b5} “Shortest path in an unweighted graph - GeeksforGeeks”. GeeksforGeeks. Consult. 2024-06-23. [Em linha]. Disponível: https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
+\bibitem{b6} “Minimum Steps to Reach the Target - GeeksforGeeks”. GeeksforGeeks. Consult. 2024-06-23. [Em linha]. Disponível: https://www.geeksforgeeks.org/minimum-steps-to-reach-the-target/
+\bibitem{b7} J. R. Bitner e E. M. Reingold, “Backtrack programming techniques”, Commun. ACM, vol. 18, n.º 11, pp. 651–656, novembro de 1975. Consult. 2024-06-23. [Em linha]. Disponível: https://doi.org/10.1145/361219.361224
+\bibitem{b8} T. H. Cormen, Algoritmos. Elsevier, 2012.
+\bibitem{b9} F. R. (Editor), P. v. B. (Editor) e T. W. (Editor), Eds., Handbook of Constraint Programming (Foundations of Artificial Intelligence). Elsevier Sci., 2006.
+\bibitem{b10} F. L. Bauer e H. Wössner, “The “Plankalkül” of Konrad Zuse”, Commun. ACM, vol. 15, n.º 7, pp. 678–685, julho de 1972. Consult. 2024-06-23. [Em linha]. Disponível: https://doi.org/10.1145/361454.361515
 \end{thebibliography}
 \vspace{12pt}
 \color{red}
